@@ -20,7 +20,9 @@ router.post("/signup",async (req,res,next)=>{
     
    user.password = await user.encryptPassword(user.password);
   await user.save();
-   const token =  jwt.sign({id:user._id},config.secret,{
+   const token =  jwt.sign({id:user._id ,
+                            idAdmin:true,
+},config.secret,{
         expiresIn: 60*60*24
     })
      res.json({auth:true, token})
